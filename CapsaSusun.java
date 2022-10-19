@@ -1,18 +1,21 @@
 import java.io.*;
+import java.util.Arrays;
+
 public class CapsaSusan {
     public static String cards = "";
     public static int[] point = new int[13];
     public static String[] card = new String[13];
 
     public static String[] set1 = new String[3];
-    public static String[] set2 = new String[50];
+    public static String[] set2 = new String[5];
     public static String[] set3 = new String[5];
 
     static String[] RoyalFlush = new String[5];
     static String[] StraightFlush = new String[5];
     static String[] FourOfaKind = new String[4];
     static String[] FullHouse = new String[5];
-    static String[] Flush = new String[50];
+    static String[] Flush = new String[5];
+    static String[] Straight = new String[5];
     static String[] ThreeOfaKind = new String[3];
     static String[] TwoPair = new String[4];
     static String[] OnePair = new String[2];
@@ -20,13 +23,6 @@ public class CapsaSusan {
 
     public static void main(String[] args) {
 
-//        try {
-//            BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
-//            writer.write("Writing to a file.");
-//            writer.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         try {
 //            อ่านค่าจากไฟล์ cards.txt แล้วเก็บใว้ในตัวแปล line
@@ -50,26 +46,187 @@ public class CapsaSusan {
         printArr(point);
         printStrArr(card);
 
-//        System.out.println(isRoyalFlush());
-//        System.out.println(isStraightFlush());
-//        System.out.println(isFourOfaKind());
-//        System.out.println(isFullHouse());
-//        System.out.println(isFlush());
-//        System.out.println(isThreeOfaKind());
-//        System.out.println(isTwoPair());
-        System.out.println(isOnePair());
+        if (isRoyalFlush()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < RoyalFlush.length; j++) {
+                    set3[j] = RoyalFlush[j];
+                }
 
-        printStrArr(OnePair);
+            }
+        }
+        if (isStraightFlush()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < StraightFlush.length; j++) {
+                    set3[j] = StraightFlush[j];
+                }
+            } else {
+                for (int j = 0; j < StraightFlush.length; j++) {
+                    set2[j] = StraightFlush[j];
+                }
+            }
+        }
+        if (isFourOfaKind()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < FourOfaKind.length; j++) {
+                    set3[j] = FourOfaKind[j];
+                }
+            } else {
+                for (int j = 0; j < FourOfaKind.length; j++) {
+                    set2[j] = FourOfaKind[j];
+                }
+            }
+        }
+        if (isFullHouse()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < FullHouse.length; j++) {
+                    set3[j] = FullHouse[j];
+                }
+            } else {
+                for (int j = 0; j < FullHouse.length; j++) {
+                    set2[j] = FullHouse[j];
+                }
+            }
+        }
+//        if (isFlush()) {
+//            if (isArrayNull(set3)) {
+//                for (int j = 0; j < Flush.length; j++) {
+//                    set3[j] = Flush[j];
+//                }
+//            } else {
+//                for (int j = 0; j < Flush.length; j++) {
+//                    set2[j] = Flush[j];
+//                }
+//            }
+//        }
+        if (isStraight()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < Straight.length; j++) {
+                    set3[j] = Straight[j];
+                }
+            } else {
+                for (int j = 0; j < Straight.length; j++) {
+                    set2[j] = Straight[j];
+                }
+            }
+        }
+        if (isThreeOfaKind()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < ThreeOfaKind.length; j++) {
+                    set3[j] = ThreeOfaKind[j];
+                }
+            } else if (isArrayNull(set2)) {
+                for (int j = 0; j < ThreeOfaKind.length; j++) {
+                    set2[j] = ThreeOfaKind[j];
+                }
+            } else {
+                for (int j = 0; j < ThreeOfaKind.length; j++) {
+                    set1[j] = ThreeOfaKind[j];
+                }
+            }
+        }
+        if (isTwoPair()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < TwoPair.length; j++) {
+                    set3[j] = TwoPair[j];
+                }
+            } else if (isArrayNull(set2)) {
+                for (int j = 0; j < TwoPair.length; j++) {
+                    set2[j] = TwoPair[j];
+                }
+            } else {
+
+            }
+        }
+        if (isOnePair()) {
+            if (isArrayNull(set3)) {
+                for (int j = 0; j < OnePair.length; j++) {
+                    set3[j] = OnePair[j];
+                }
+            } else if (isArrayNull(set2)) {
+                for (int j = 0; j < OnePair.length; j++) {
+                    set2[j] = OnePair[j];
+                }
+            } else {
+                for (int j = 0; j < OnePair.length; j++) {
+                    set1[j] = OnePair[j];
+                }
+            }
+        }
+
+
+        printStrArr(TwoPair);
+
+        if (isArrayEmpty(set3)) {
+            System.out.println("Set 3 is empty");
+            for (int i = 0; i < set3.length; i++) {
+                for (int j = 0; j < point.length; j++) {
+                    if (set3[i] == null && !card[j].equals("")) {
+                        set3[i] = card[j];
+                        card[j] = "";
+                        point[j] = 0;
+                    }
+                }
+            }
+        }
+        if (isArrayEmpty(set2)) {
+            System.out.println("Set 2 is empty");
+            for (int i = 0; i < set2.length; i++) {
+                for (int j = 0; j < point.length; j++) {
+                    if (set2[i] == null && !card[j].equals("")) {
+                        set2[i] = card[j];
+                        card[j] = "";
+                        point[j] = 0;
+                    }
+                }
+            }
+        }
+        if (isArrayEmpty(set1)) {
+            System.out.println("Set 1 is empty");
+            for (int i = 0; i < set1.length; i++) {
+                for (int j = 0; j < point.length; j++) {
+                    if (set1[i] == null && !card[j].equals("")) {
+                        set1[i] = card[j];
+                        card[j] = "";
+                        point[j] = 0;
+                    }
+                }
+            }
+        }
+
+        System.out.println("---------------------------------");
+
+        printStrArr(set1);
+        printStrArr(set2);
+        printStrArr(set3);
+
+        printStrArr(card);
+        printArr(point);
+
+        System.out.println("---------------------------------");
+
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
+            writer.write("1:" + Arrays.toString(set1).replace("[", "").replace("]", "") + "\n");
+            writer.write("2:" + Arrays.toString(set2).replace("[", "").replace("]", "") + "\n");
+            writer.write("3:" + Arrays.toString(set3).replace("[", "").replace("]", ""));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        printStrArr(Straight);
     }
 
     public static boolean isRoyalFlush() {
         int n = point.length - 1;
-        int idxSet = set3.length - 1;
+        int idxSet = RoyalFlush.length - 1;
         int counter = 14;
 
 //       Check is ten, jack, queen, king, ace, are sequential order and all the same suit.
 //       ตรวจสอบว่าไพ่เรียงกันตามลำดับ ten, jack, queen, king, ace, และมีดอกเดียวกันหรือไม่
         for (int i = n; i > 0; i--) {
+
             if (point[i] == counter) {
                 if (lcs(card[i], card[n], card[i].length(), card[n].length(), 0) == 2 || lcs(card[i], card[n], card[i].length(), card[n].length(), 0) == 1) {
                     RoyalFlush[idxSet] = card[i];
@@ -84,6 +241,16 @@ public class CapsaSusan {
             clearArr(RoyalFlush);
             return false;
         }
+
+        for (int i = 0; i < RoyalFlush.length; i++) {
+            for (int j = 0; j < point.length; j++) {
+                if (RoyalFlush[i] == card[j]) {
+                    card[j] = "";
+                    point[j] = 0;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -109,6 +276,16 @@ public class CapsaSusan {
             clearArr(StraightFlush);
             return false;
         }
+
+        for (int i = 0; i < StraightFlush.length; i++) {
+            for (int j = 0; j < point.length; j++) {
+                if (StraightFlush[i] == card[j]) {
+                    card[j] = "";
+                    point[j] = 0;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -132,12 +309,48 @@ public class CapsaSusan {
             clearArr(FourOfaKind);
             return false;
         }
+
+        for (int i = 0; i < FourOfaKind.length; i++) {
+            for (int j = 0; j < point.length; j++) {
+                if (FourOfaKind[i] == card[j]) {
+                    card[j] = "";
+                    point[j] = 0;
+                }
+            }
+        }
+
         return true;
     }
 
     public static boolean isFullHouse() {
         int n = point.length;
         int counter = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (countOccurrences(point, point.length, i) == 3) {
+
+                for (int j = i; j < n; j++) {
+                    if (counter != 3) {
+                        FullHouse[counter] = card[j - 3];
+                        counter++;
+                    }
+
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (point[i] == point[j] && counter != 2) {
+                    if (point[i] != 0) {
+                        OnePair[counter] = card[i];
+                        OnePair[counter + 1] = card[j];
+                        counter += 2;
+                    }
+
+                }
+            }
+        }
 
         return true;
     }
@@ -174,9 +387,9 @@ public class CapsaSusan {
         }
         System.out.print(arr);
 
-        for(int x = 0; i<n;x++){
-            for(int j = x+1; j<n;j++){
-                if(arr[x] == arr[j]){
+        for (int x = 0; i < n; x++) {
+            for (int j = x + 1; j < n; j++) {
+                if (arr[x] == arr[j]) {
                     count++;
                 } else {
                     count = 0;
@@ -189,7 +402,42 @@ public class CapsaSusan {
         return true;
     }
 
-    public static void isStraight() {
+    public static boolean isStraight() {
+        int n = point.length;
+        int counter = 0;
+        int prev = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (prev != point[i]) {
+                    if (point[i] < point[j] && point[i] == point[j] - 1) {
+                        if (counter != 5) {
+                            Straight[counter] = card[i];
+                            prev = point[i];
+                            counter++;
+                            break;
+                        }
+                    }
+                }
+
+//                }
+            }
+        }
+
+        if (isArrayEmpty(Straight)) {
+            clearArr(Straight);
+            return false;
+        }
+
+        for (int i = 0; i < Straight.length; i++) {
+            for (int j = 0; j < point.length; j++) {
+                if (Straight[i] == card[j]) {
+                    card[j] = "";
+                    point[j] = 0;
+                }
+            }
+        }
+
+        return true;
     }
 
     //    สามารถเก็บลง set1 ได้
@@ -198,7 +446,7 @@ public class CapsaSusan {
         int counter = 0;
 
         for (int i = 0; i < n; i++) {
-            if (countOccurrences(point, point.length, i) == 4) {
+            if (countOccurrences(point, point.length, i) == 3) {
 
                 for (int j = i; j < n; j++) {
                     if (counter != 3) {
@@ -213,18 +461,29 @@ public class CapsaSusan {
             clearArr(ThreeOfaKind);
             return false;
         }
+
+        for (int i = 0; i < ThreeOfaKind.length; i++) {
+            for (int j = 0; j < point.length; j++) {
+                if (ThreeOfaKind[i] == card[j]) {
+                    card[j] = "";
+                    point[j] = 0;
+                }
+            }
+        }
         return true;
     }
 
     public static boolean isTwoPair() {
         int n = point.length;
         int counter = 0;
-        for(int i = 0; i <n; i++){
-            for(int j = i+1; j<n; j++){
-                if(point[i] == point[j] && counter != 4){
-                    TwoPair[counter] = card[i];
-                    TwoPair[counter+1] = card[j];
-                    counter+=2;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (point[i] == point[j] && counter != 4) {
+                    if (point[i] != 0) {
+                        TwoPair[counter] = card[i];
+                        TwoPair[counter + 1] = card[j];
+                        counter += 2;
+                    }
 
                 }
             }
@@ -235,6 +494,15 @@ public class CapsaSusan {
             return false;
         }
 
+        for (int i = 0; i < TwoPair.length; i++) {
+            for (int j = 0; j < point.length; j++) {
+                if (TwoPair[i] == card[j]) {
+                    card[j] = "";
+                    point[j] = 0;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -242,12 +510,14 @@ public class CapsaSusan {
     public static boolean isOnePair() {
         int n = point.length;
         int counter = 0;
-        for(int i = 0; i <n; i++){
-            for(int j = i+1; j<n; j++){
-                if(point[i] == point[j] && counter != 2){
-                    OnePair[counter] = card[i];
-                    OnePair[counter+1] = card[j];
-                    counter+=2;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (point[i] == point[j] && counter != 2) {
+                    if (point[i] != 0) {
+                        OnePair[counter] = card[i];
+                        OnePair[counter + 1] = card[j];
+                        counter += 2;
+                    }
 
                 }
             }
@@ -258,11 +528,16 @@ public class CapsaSusan {
             return false;
         }
 
-        return true;
-    }
+        for (int i = 0; i < OnePair.length; i++) {
+            for (int j = 0; j < point.length; j++) {
+                if (OnePair[i] == card[j]) {
+                    card[j] = "";
+                    point[j] = 0;
+                }
+            }
+        }
 
-    //    สามารถเก็บลง set1 ได้
-    public static void isHighCard() {
+        return true;
     }
 
     public static int[] cardPoint(String[] card) {
@@ -349,6 +624,7 @@ public class CapsaSusan {
         System.out.println();
     }
 
+
     public static int lcs(String str1, String str2, int i, int j, int count) {
 
         if (i == 0 || j == 0) {
@@ -381,6 +657,16 @@ public class CapsaSusan {
         }
         return false;
     } // เช็กว่ามีค่าใน Array มั้ย
+
+    public static boolean isArrayNull(String[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] != null) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static int countOccurrences(int arr[], int n, int x) {
         int res = 0;
