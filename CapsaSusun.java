@@ -13,6 +13,10 @@ public class CapsaSusan {
     static String[] FourOfaKind = new String[4];
     static String[] FullHouse = new String[5];
     static String[] Flush = new String[50];
+    static String[] ThreeOfaKind = new String[3];
+    static String[] TwoPair = new String[4];
+    static String[] OnePair = new String[2];
+
 
     public static void main(String[] args) {
 
@@ -50,9 +54,12 @@ public class CapsaSusan {
 //        System.out.println(isStraightFlush());
 //        System.out.println(isFourOfaKind());
 //        System.out.println(isFullHouse());
-        System.out.println(isFlush());
+//        System.out.println(isFlush());
+//        System.out.println(isThreeOfaKind());
+//        System.out.println(isTwoPair());
+        System.out.println(isOnePair());
 
-        printStrArr(Flush);
+        printStrArr(OnePair);
     }
 
     public static boolean isRoyalFlush() {
@@ -179,8 +186,6 @@ public class CapsaSusan {
 
         System.out.println(count);
 
-
-
         return true;
     }
 
@@ -188,14 +193,72 @@ public class CapsaSusan {
     }
 
     //    สามารถเก็บลง set1 ได้
-    public static void isThreeOfaKind() {
+    public static boolean isThreeOfaKind() {
+        int n = point.length;
+        int counter = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (countOccurrences(point, point.length, i) == 4) {
+
+                for (int j = i; j < n; j++) {
+                    if (counter != 3) {
+                        ThreeOfaKind[counter] = card[j - 3];
+                        counter++;
+                    }
+
+                }
+            }
+        }
+        if (isArrayEmpty(ThreeOfaKind)) {
+            clearArr(ThreeOfaKind);
+            return false;
+        }
+        return true;
     }
 
-    public static void isTwoPair() {
+    public static boolean isTwoPair() {
+        int n = point.length;
+        int counter = 0;
+        for(int i = 0; i <n; i++){
+            for(int j = i+1; j<n; j++){
+                if(point[i] == point[j] && counter != 4){
+                    TwoPair[counter] = card[i];
+                    TwoPair[counter+1] = card[j];
+                    counter+=2;
+
+                }
+            }
+        }
+
+        if (isArrayEmpty(TwoPair)) {
+            clearArr(TwoPair);
+            return false;
+        }
+
+        return true;
     }
 
     //    สามารถเก็บลง set1 ได้
-    public static void isOnePair() {
+    public static boolean isOnePair() {
+        int n = point.length;
+        int counter = 0;
+        for(int i = 0; i <n; i++){
+            for(int j = i+1; j<n; j++){
+                if(point[i] == point[j] && counter != 2){
+                    OnePair[counter] = card[i];
+                    OnePair[counter+1] = card[j];
+                    counter+=2;
+
+                }
+            }
+        }
+
+        if (isArrayEmpty(OnePair)) {
+            clearArr(OnePair);
+            return false;
+        }
+
+        return true;
     }
 
     //    สามารถเก็บลง set1 ได้
